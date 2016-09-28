@@ -1,0 +1,22 @@
+{# Шаблон навигации на странице #}
+
+{# Путь к текущей категории #}
+<ol class="breadcrumb">
+    {# Отображаем ссылки на все категории до текущей #}
+    {% for el in path if el != path|last %}
+        <li><a href="{{ url|split('?')[0] ~ '?id=' ~ el['id'] }}">{{ el['name'] }}</a></li>
+    {% endfor %}
+    {# Отображаем текущую категорию #}
+    <li class="active">{{ path|last['name'] }}</li>
+</ol>
+
+{# Дочерние категории (если есть) #}
+
+{% if subcats is defined %}
+<ul class="pager pageMenu">
+    {% for el in subcats %}
+        <li><a href="{{ url|split('?')[0] ~ '?id=' ~ el['id'] }}">{{ el['name'] }}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
+
